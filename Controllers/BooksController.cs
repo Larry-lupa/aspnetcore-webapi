@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using my_books.Data.Models.ViewModels;
 using my_books.Data.Services;
+using my_books.Data.ViewModels;
 
 namespace my_books.Controllers
 {
@@ -30,10 +30,31 @@ namespace my_books.Controllers
             return Ok(book);
         }
 
-        [HttpPost("add-book")]
-        public IActionResult AddBook([FromBody]BookVM book)
+        [HttpPost("add-book-with-authors")]
+        public IActionResult AddBookWithAuthors([FromBody]BookVM book)
         {
-            _bookService.AddBook(book);
+            _bookService.AddBookWithAuthors(book);
+            return Ok();
+        }
+
+        [HttpPut("update-book-by-id/{id}")]
+        public IActionResult UpdateBookById(int id, [FromBody]BookVM book)
+        {
+            var updateBook = _bookService.UpdateBookId(id, book);
+            return Ok(updateBook);
+        }
+
+        [HttpDelete("delete-book-by-id/{id}")]
+        public IActionResult DeleteBookById(int id)
+        {
+            _bookService.DeleteBookById(id);
+            return Ok();
+        }
+
+        [HttpDelete("delete-all-books")]
+        public IActionResult DeleteAllBooks()
+        {
+            _bookService.DeleteAllBooks();
             return Ok();
         }
     }

@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using my_books.Data;
 using my_books.Data.Services;
+using my_books.Exceptions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +15,8 @@ builder.Services.AddSwaggerGen();
 
 // Services need to be configured/registered before AppDbContext, otherwise DB doesn't get updated
 builder.Services.AddTransient<BooksService>();
+builder.Services.AddTransient<AuthorsService>();
+builder.Services.AddTransient<PublishersServices>();
 
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(
     builder.Configuration.GetConnectionString("DefaultConnectionString")));
@@ -32,8 +35,12 @@ app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
+// Exception Handling
+//app.ConfigureCustomExceptionHandler();
+app.ConfigureBuildInExceptionHandler();
+
 app.MapControllers();
 
-AppDbInitializer.Seed(app);
+// AppDbInitializer.Seed(app);
 
 app.Run();
