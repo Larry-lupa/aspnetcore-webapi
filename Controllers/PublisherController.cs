@@ -1,7 +1,4 @@
-﻿using System.Text.RegularExpressions;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc;
 using my_books.Data.Models;
 using my_books.Data.Services;
 using my_books.Data.ViewModels;
