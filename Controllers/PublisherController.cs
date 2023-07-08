@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using my_books.ActionResults;
 using my_books.Data.Models;
 using my_books.Data.Services;
 using my_books.Data.ViewModels;
@@ -24,7 +25,7 @@ namespace my_books.Controllers
                 var newPublisher = _publisherService.AddPublisher(publisher);
                 return Created(nameof(AddPublisher), newPublisher);
             }
-            catch(PublisherNameException ex)
+            catch (PublisherNameException ex)
             {
                 return BadRequest($"{ex.Message}, Publisher name: {ex.PublisherName}");
             }
@@ -35,7 +36,18 @@ namespace my_books.Controllers
         }
 
         [HttpGet("get-all-publishers")]
-        public List<Publisher> GetAllPublishers() => _publisherService.GetAllPublishers().ToList();
+        public IActionResult GetAllPublishers(string? orderBy, string? searchString, int? pageNumber) 
+        {
+            try
+            {
+                var _result = _publisherService.GetAllPublishers(orderBy, searchString, pageNumber).ToList();
+                return Ok(_result);
+            }
+            catch (Exception)
+            {
+                return BadRequest("No publishers could be loaded.");
+            }
+        }
 
         [HttpGet("get-publisher-by-id/{id}")]
         public IActionResult GetPublisherById(int id)

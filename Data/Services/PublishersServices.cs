@@ -1,5 +1,6 @@
 ﻿using System.Text.RegularExpressions;
 using my_books.Data.Models;
+using my_books.Data.Paging;
 using my_books.Data.ViewModels;
 using my_books.Exceptions;
 
@@ -28,9 +29,45 @@ namespace my_books.Data.Services
 
             return _publisher;
         }
-        public List<Publisher> GetAllPublishers() => _context.Publishers.ToList();
+        public List<Publisher> GetAllPublishers(string? sortBy, string? searchString, int? pageNumber)
+        {
+            var allPublishers = _context.Publishers.OrderBy(n => n.Name).ToList();
+            if (!string.IsNullOrEmpty(sortBy))
+            {
+                switch (sortBy)
+                {
+                    case "name_desc":
+                            allPublishers = allPublishers.OrderByDescending(n => n.Name).ToList();
+                        break;
+                    default:
+                        break;
+                }
+            }
 
-        public Publisher GetPublisherById(int id) => _context.Publishers.FirstOrDefault(n => n.Id == id);
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                allPublishers = allPublishers.Where(n => n.Name.Contains(searchString, StringComparison.CurrentCultureIgnoreCase)).ToList();
+            }
+
+            // Paging
+            int pageSize = 5;
+            allPublishers = PaginatedList<Publisher>.Create(allPublishers.AsQueryable(), pageNumber ?? 1, pageSize);
+
+            return allPublishers;
+        }
+
+        public Publisher GetPublisherById(int id)
+        {
+            var publisher = _context.Publishers.FirstOrDefault(n => n.Id == id);
+            if (publisher != null)
+            {
+                return publisher;
+            }
+            else
+            {
+                throw new ArgumentNullException(nameof(publisher));
+            }
+        }
 
         public PublisherWithBooksAndAuthorsVM GetPublisherData(int publisherId)
         {
@@ -64,7 +101,7 @@ namespace my_books.Data.Services
 
         public void DeleteAllPublishers()
         {
-            var _book = this.GetAllPublishers();
+            var _book = this.GetAllPublishers(null, null, null);
             _context.RemoveRange(_book);
             _context.SaveChanges();
         }
