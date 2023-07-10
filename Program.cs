@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.EntityFrameworkCore;
 using my_books.Data;
 using my_books.Data.Services;
@@ -15,6 +16,15 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddTransient<BooksService>();
 builder.Services.AddTransient<AuthorsService>();
 builder.Services.AddTransient<PublishersServices>();
+
+builder.Services.AddApiVersioning(config =>
+{
+    config.DefaultApiVersion = new Microsoft.AspNetCore.Mvc.ApiVersion(1, 0);
+    config.AssumeDefaultVersionWhenUnspecified = true;
+
+    //config.ApiVersionReader = new HeaderApiVersionReader("custom-version-header");
+    //config.ApiVersionReader = new MediaTypeApiVersionReader();
+});
 
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(
     builder.Configuration.GetConnectionString("DefaultConnectionString")));

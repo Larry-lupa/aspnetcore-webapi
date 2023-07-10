@@ -1,12 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "OQdpCTQmo/95q4KoeG3n8ZR2DLC3oys7cfC4SIV8p/g8HzLr4P5iB3J0S4k9JRKDQhOYxXJ8vaB2hQ51Wv6NFQ==",
+  "dgSpecHash": "W3+YffaIevDAq9gYtjyK02/8w8pnsrJ/osQ2ZQcMTISuM6kuhhPsxgToffm01DwqspC51syLlSdlDcuYJ7IHaA==",
   "success": true,
   "projectFilePath": "Z:\\Larry-lupa\\my-books\\my-books.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\lfarias\\.nuget\\packages\\azure.core\\1.24.0\\azure.core.1.24.0.nupkg.sha512",
     "C:\\Users\\lfarias\\.nuget\\packages\\azure.identity\\1.6.0\\azure.identity.1.6.0.nupkg.sha512",
     "C:\\Users\\lfarias\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
+    "C:\\Users\\lfarias\\.nuget\\packages\\microsoft.aspnetcore.mvc.versioning\\5.1.0\\microsoft.aspnetcore.mvc.versioning.5.1.0.nupkg.sha512",
     "C:\\Users\\lfarias\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\1.1.1\\microsoft.bcl.asyncinterfaces.1.1.1.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",
     "C:\\Users\\lfarias\\.nuget\\packages\\microsoft.data.sqlclient\\5.0.2\\microsoft.data.sqlclient.5.0.2.nupkg.sha512",
